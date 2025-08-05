@@ -35,10 +35,12 @@ function App() {
           } catch (error) {
             setWeather({ ...weather, loading: false, error: true });
             console.error("Error fetching location weather", error);
+            fetchByCity("Kolkata")
           }
         },
         (error) => {
           console.error("Geolocation error:", error);
+          fetchByCity("Kolkata")
         }
       );
     } else {
