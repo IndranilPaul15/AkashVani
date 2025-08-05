@@ -45,6 +45,7 @@ function App() {
       );
     } else {
       console.error("Geolocation not supported");
+      fetchByCity("Kolkata");
     }
   };
 
