@@ -135,7 +135,7 @@ function App() {
         )}
         {weather.error && (
           <div className="error-message">
-            <span style={{ fontSize: "20px" }}> City Not found .. </span>
+            <span style={{ fontSize: "20px" }}> City Not found ... </span>
           </div>
         )}
         {weather.data?.main && (
