@@ -14,12 +14,29 @@ function App() {
     getCityByGeo();
   }, []);
   const getCityByGeo = () => {
+    const API_KEY = import.meta.env.VITE_WEATHER_API;
+    const url = `https://api.openweathermap.org/data/2.5/weather`;
+    const fetchByCity = async (city) => {
+      try {
+        const result = await axios.get(url, {
+          params: {
+            q: city,
+            units: "metric",
+            appid: API_KEY,
+          },
+        });
+        setInput(result.data.name);
+        setWeather({ data: result.data, loading: false, error: false });
+      } catch (error) {
+        setWeather({ ...weather, loading: false, error: true });
+        console.error(`Error fetching weather for ${city}:`, error);
+      }
+    };
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position.coords;
-          const API_KEY = import.meta.env.VITE_WEATHER_API;
-          const url = `https://api.openweathermap.org/data/2.5/weather`;
 
           try {
             const result = await axios.get(url, {
@@ -152,7 +169,7 @@ function App() {
           </div>
         )}
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
